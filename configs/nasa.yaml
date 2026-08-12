@@ -1,0 +1,25 @@
+seed: 42
+
+data:
+  data_dir: data/raw
+  train_batteries: [B0005, B0006, B0007]
+  test_batteries: [B0018]
+  sequence_length: 10
+
+model:
+  type: transformer
+  hidden_size: 64
+  num_layers: 2
+  num_heads: 4
+  dropout: 0.10
+
+training:
+  epochs: 150
+  batch_size: 32
+  learning_rate: 0.001
+  weight_decay: 0.00001
+  validation_fraction: 0.20
+  patience: 20
+
+output:
+  directory: results
