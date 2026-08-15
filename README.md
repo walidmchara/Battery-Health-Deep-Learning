@@ -1,13 +1,13 @@
-# 🔋 Battery Health Deep Learning
+# 🔋 Battery Health Deep Learning: Hybrid Models Comparison
 
-### Deep Learning & Transformer-Based Lithium-Ion Battery State-of-Health Estimation
+### Comparative Analysis of Hybrid Deep Learning Models for Lithium-Ion Battery State-of-Health Estimation
 
 [![Python](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/)
 [![PyTorch](https://img.shields.io/badge/PyTorch-Deep%20Learning-red.svg)](https://pytorch.org/)
-[![Research](https://img.shields.io/badge/Research-Battery%20AI-green.svg)](#)
+[![Research](https://img.shields.io/badge/Research-Model%20Comparison-green.svg)](#)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-Research repository for **AI-driven lithium-ion battery State-of-Health (SOH) estimation and intelligent health diagnosis** using hybrid deep learning, wavelet-based feature extraction, attention mechanisms, and Transformer architectures.
+Comprehensive research repository for **comparative analysis of hybrid deep learning architectures** for lithium-ion battery State-of-Health (SOH) estimation. This project evaluates multiple model architectures including LSTM, BiLSTM, GRU, CNN-LSTM, CNN-GRU, CNN-BiLSTM-Attention, CNN-BiGRU-Attention, and Transformer-based models across NASA and CALCE datasets.
 
 This repository is part of the [AI Research Portfolio](https://github.com/walidmchara/AI-Research-Portfolio) of **Walid Mchara, PhD**.
 
@@ -15,108 +15,139 @@ This repository is part of the [AI Research Portfolio](https://github.com/walidm
 
 ## 🎯 Research Objective
 
-Accurate estimation of lithium-ion battery health is essential for:
+This project systematically compares and benchmarks multiple hybrid deep learning architectures for accurate lithium-ion battery State-of-Health (SOH) estimation using:
 
-* electric vehicle safety,
-* battery management systems,
-* predictive maintenance,
-* degradation monitoring,
-* energy management,
-* and reliable Remaining Useful Life assessment.
+* **NASA Battery Dataset** - Standard benchmark for battery degradation studies
+* **CALCE Battery Dataset** - Real-world battery aging under varied operating conditions
 
-Battery degradation is nonlinear, operating-condition dependent, and difficult to model using conventional approaches.
+Key research goals:
 
-This project investigates data-driven and hybrid AI architectures capable of learning both **local degradation patterns and long-term temporal dependencies** from battery cycling data.
+* Compare performance across diverse model architectures (RNN, CNN-RNN, Attention-based, Transformer)
+* Identify optimal hybrid combinations for battery health prediction
+* Evaluate generalization across different datasets and operating conditions
+* Provide empirical evidence for model selection in battery management systems
+* Enable predictive maintenance and remaining useful life (RUL) assessment
+
+Battery degradation is nonlinear, operating-condition dependent, and difficult to model using conventional approaches. This project investigates which hybrid AI architectures best capture both **local degradation patterns and long-term temporal dependencies** from battery cycling data.
 
 ---
 
-## 🧠 Research Framework
+## 🧠 Hybrid Model Architectures Comparison
 
-The general modeling strategy combines several complementary learning mechanisms:
+This project implements and compares the following deep learning architectures:
+
+### Sequential Models
+- **LSTM Regressor** - Standard LSTM for temporal sequence modeling
+- **BiLSTM Regressor** - Bidirectional LSTM capturing both past and future context
+- **GRU Regressor** - Gated Recurrent Unit with simpler gate mechanism
+
+### Hybrid CNN-RNN Models
+- **CNN-LSTM** - Convolutional feature extraction followed by LSTM temporal modeling
+- **CNN-GRU** - Convolutional feature extraction followed by GRU temporal modeling
+- **CNN-BiLSTM-Attention** - CNN features → BiLSTM → Attention mechanism
+- **CNN-BiGRU-Attention** - CNN features → BiGRU → Attention mechanism
+
+### Transformer-Based Models
+- **Transformer Regressor** - Self-attention based encoder for sequence-to-regression
+
+### Unified Pipeline
 
 ```text
-Battery Cycling Data
+Battery Cycling Data (NASA / CALCE)
         │
         ▼
 Data Cleaning & Preprocessing
         │
         ▼
-Feature Engineering
+Feature Engineering & Normalization
         │
         ▼
-Wavelet / Multi-Scale Decomposition
+Sequence Construction (Time Windows)
         │
-        ▼
-CNN-Based Feature Extraction
-        │
-        ▼
-BiLSTM / Sequential Modeling
-        │
-        ▼
-Attention / Transformer
-        │
-        ▼
-SOH Regression
-        │
-        ▼
-Evaluation & Generalization Analysis
+        ├─────────────────────────────────────────────┐
+        │                                             │
+        ▼                                             ▼
+Sequential Models                        Hybrid CNN-RNN Models
+(LSTM, BiLSTM, GRU)                   (CNN-LSTM, CNN-GRU, etc.)
+        │                                             │
+        └─────────────────────────────────────────────┤
+                        │                             │
+                        ├──────────────────────────────┤
+                        │                              │
+                        ▼                              ▼
+                Attention Models          Transformer Encoder
+        (CNN-BiLSTM-Attention,                       │
+         CNN-BiGRU-Attention)                        │
+                        │                            │
+                        └────────────────────────────┬┘
+                                    │
+                                    ▼
+                        SOH Regression Predictions
+                                    │
+                                    ▼
+                        Model Evaluation & Comparison
+                    (MAE, RMSE, R², Generalization)
 ```
 
-The architecture is designed to capture:
-
-* short-term degradation signatures,
-* nonlinear temporal dynamics,
-* multi-scale battery behavior,
-* long-range dependencies,
-* and cross-battery degradation patterns.
-
----
-
-## 🔬 Research Topics
-
-This repository covers:
-
-* Lithium-ion battery State-of-Health estimation
-* Battery health diagnosis
-* Battery degradation modeling
-* Deep learning for battery management
-* Wavelet-enhanced neural networks
-* CNN feature extraction
-* LSTM and BiLSTM modeling
-* Attention mechanisms
-* Transformer architectures
-* Cross-cell generalization
-* Multi-dataset evaluation
-* Explainable battery intelligence
+### Model Comparison Metrics
+- **Mean Absolute Error (MAE)** - Average prediction deviation
+- **Root Mean Squared Error (RMSE)** - Sensitivity to large errors
+- **R² Score** - Explained variance ratio
+- **Cross-Dataset Generalization** - Performance on unseen datasets
+- **Inference Time** - Computational efficiency
 
 ---
 
-## 📊 Datasets
+## 🔬 Research Scope
+
+This comparative study covers:
+
+* **Model Architecture Comparison** - Performance across 8+ hybrid deep learning models
+* **Multi-Dataset Evaluation** - NASA and CALCE battery datasets
+* **State-of-Health Estimation** - Accurate SOH prediction for battery monitoring
+* **Hybrid Model Design** - CNN-RNN, Attention, and Transformer combinations
+* **Temporal Sequence Modeling** - LSTM, BiLSTM, GRU variants
+* **Attention Mechanisms** - Context-aware feature weighting
+* **Transformer Architectures** - Self-attention based sequence modeling
+* **Cross-Dataset Generalization** - Model robustness across different data sources
+* **Comparative Benchmarking** - Performance metrics and trade-offs
+* **Battery Degradation Analysis** - Understanding nonlinear aging patterns
+* **Predictive Maintenance** - Enabling RUL (Remaining Useful Life) assessment
+* **Explainable Battery Intelligence** - Model interpretability and insights
+
+---
+
+## 📊 Datasets & Model Comparison Framework
 
 ### NASA Battery Dataset
 
-Experiments use publicly available lithium-ion battery aging data from the **NASA Prognostics Center of Excellence**.
+The **NASA Prognostics Center of Excellence** dataset is a standard benchmark containing lithium-ion battery aging data under controlled conditions:
 
-The datasets contain battery charge/discharge cycles under different operating and aging conditions.
-
-Typical information includes:
-
-* voltage,
-* current,
-* temperature,
-* capacity,
-* cycle information,
-* charge/discharge measurements.
-
----
+* **Cells**: B0005, B0006, B0007, B0018
+* **Operating Conditions**: Controlled temperature and charge/discharge protocols
+* **Measurements**: Voltage, current, temperature, capacity
+* **Characteristics**: Well-defined degradation patterns, consistent experimental setup
 
 ### CALCE Battery Dataset
 
-Additional experiments use lithium-ion battery degradation data from the **Center for Advanced Life Cycle Engineering (CALCE)**.
+The **Center for Advanced Life Cycle Engineering (CALCE)** dataset provides complementary real-world battery aging data:
 
-Using multiple battery datasets enables evaluation of model robustness and generalization across cells and experimental conditions.
+* **Operating Conditions**: Varied temperatures and discharge rates
+* **Measurements**: Voltage, current, temperature, capacity
+* **Characteristics**: More realistic degradation patterns, diverse operating environments
 
-> Large raw datasets are not directly stored in this repository. Instructions for obtaining and preparing the datasets will be provided in `data/README.md`.
+### Multi-Dataset Strategy
+
+This project uses **dual-dataset evaluation** to assess model generalization:
+
+| Aspect | Purpose |
+|--------|---------|
+| **Single-Dataset Training** | Establish baseline performance and model characteristics |
+| **Cross-Dataset Evaluation** | Test generalization across different operating conditions |
+| **Combined Training** | Improve robustness through diverse data sources |
+| **Comparative Benchmarking** | Identify which architectures generalize best |
+
+> Large raw datasets are not directly stored in this repository. Instructions for obtaining and preparing the datasets are provided in [data/README.md](data/README.md).
 
 ---
 
@@ -143,48 +174,83 @@ where (X_{1:t}) represents the battery measurements available up to cycle (t).
 
 ---
 
-## 🏗️ Models
+## 🏗️ Model Architectures
 
-The repository will progressively provide implementations and benchmarks for:
+### Implemented Models
 
-### Baseline Models
+This project implements and compares 8 hybrid deep learning architectures:
 
-* Linear Regression
-* Random Forest
-* Support Vector Regression
-* XGBoost
-* LSTM
-* BiLSTM
-* GRU
+#### Sequential Models (Baseline RNN Variants)
+| Model | Architecture | Parameters |
+|-------|--------------|-----------|
+| **LSTM** | Single-direction LSTM | input_size, hidden_size=64, num_layers=2, dropout=0.1 |
+| **BiLSTM** | Bidirectional LSTM | input_size, hidden_size=64, num_layers=2, dropout=0.1 |
+| **GRU** | Gated Recurrent Unit | input_size, hidden_size=64, num_layers=2, dropout=0.1 |
 
-### Deep Learning Models
+#### Hybrid CNN-RNN Models (Local + Temporal Features)
+| Model | Architecture | Components |
+|-------|--------------|-----------|
+| **CNN-LSTM** | Conv1D (3×1) → LSTM | CNN feature extraction + LSTM temporal modeling |
+| **CNN-GRU** | Conv1D (3×1) → GRU | CNN feature extraction + GRU temporal modeling |
 
-* CNN-LSTM
-* CNN-BiLSTM
-* Wavelet-enhanced neural networks
-* Attention-based recurrent networks
+#### Attention-Enhanced Hybrid Models (Context-Aware)
+| Model | Architecture | Mechanism |
+|-------|--------------|----------|
+| **CNN-BiLSTM-Attention** | Conv1D → BiLSTM → Attention | CNN features → bidirectional context → weighted attention |
+| **CNN-BiGRU-Attention** | Conv1D → BiGRU → Attention | CNN features → bidirectional context → weighted attention |
 
-### Transformer Models
+#### Transformer Models (Self-Attention Based)
+| Model | Architecture | Key Features |
+|-------|--------------|--------------|
+| **Transformer** | Multi-head self-attention encoder | Positional encoding, 2 layers, 4 heads, d_model=64 |
 
-* Transformer Encoder
-* Attention-based Transformer
-* Efficient Transformer variants
-
-### Hybrid Architectures
-
-The main research direction combines:
+### Model Selection Strategy
 
 ```text
-Wavelet
-   +
-CNN
-   +
-BiLSTM
-   +
-Attention / Transformer
+Model Complexity & Interpretability vs Performance
+
+Simple & Fast                              Complex & Expressive
+│                                          │
+LSTM ─ BiLSTM ─ GRU                         │
+       │                                   │
+       └─ CNN-LSTM ─ CNN-GRU               │
+              │                            │
+              └─ CNN-BiLSTM-Attention      │
+                 CNN-BiGRU-Attention       │
+                       │                   │
+                       └─ Transformer ─────┘
 ```
 
-to exploit complementary multi-scale, spatial-feature, temporal, and long-range dependency learning.
+---
+
+## 🎓 Comparative Analysis Framework
+
+Each model is evaluated on:
+
+1. **Single-Dataset Performance**
+   - Training on NASA dataset
+   - Training on CALCE dataset
+   
+2. **Cross-Dataset Generalization**
+   - Train on NASA → Test on CALCE
+   - Train on CALCE → Test on NASA
+   
+3. **Combined Training**
+   - Train on both datasets together
+   
+4. **Performance Metrics**
+   - MAE (Mean Absolute Error)
+   - RMSE (Root Mean Squared Error)
+   - R² Score
+   - Inference time
+   - Model size
+
+### Expected Outcomes
+
+- **Sequential Models (LSTM/BiLSTM/GRU)**: Fast, interpretable baseline
+- **Hybrid CNN-RNN Models**: Improved local feature extraction
+- **Attention Models**: Better context awareness and long-range dependencies
+- **Transformer Models**: Superior self-attention capabilities, potentially best generalization
 
 ---
 
@@ -193,43 +259,59 @@ to exploit complementary multi-scale, spatial-feature, temporal, and long-range 
 ```text
 Battery-Health-Deep-Learning/
 │
-├── README.md
-├── LICENSE
-├── requirements.txt
+├── README.md                    # Project overview and guide
+├── LICENSE                      # MIT License
+├── requirements.txt             # Python dependencies
 │
 ├── configs/
-│   ├── nasa.yaml
-│   └── calce.yaml
+│   ├── nasa.yaml               # NASA dataset configuration
+│   └── calce.yaml              # CALCE dataset configuration
 │
 ├── data/
-│   ├── README.md
-│   └── sample/
-│
-├── notebooks/
-│   ├── 01_data_exploration.ipynb
-│   ├── 02_preprocessing.ipynb
-│   └── 03_soh_prediction_demo.ipynb
+│   ├── README.md               # Dataset preparation guide
+│   └── raw/                    # Raw battery data
+│       ├── B0005.mat
+│       ├── B0006.mat
+│       ├── B0007.mat
+│       └── B0018.mat
 │
 ├── src/
-│   ├── dataset.py
-│   ├── preprocessing.py
+│   ├── __init__.py
+│   ├── dataset.py              # Dataset loading and preprocessing
+│   ├── preprocessing.py        # Feature engineering and normalization
+│   ├── train.py                # Training pipeline
+│   ├── evaluate.py             # Model evaluation and benchmarking
 │   │
-│   ├── models/
-│   │   ├── lstm.py
-│   │   ├── cnn_bilstm.py
-│   │   ├── transformer.py
-│   │   └── hybrid_model.py
-│   │
-│   ├── train.py
-│   ├── evaluate.py
-│   └── utils.py
+│   └── models/                 # Model implementations
+│       ├── __init__.py
+│       ├── lstm.py             # LSTM Regressor
+│       ├── bilstm.py           # BiLSTM Regressor
+│       ├── gru.py              # GRU Regressor
+│       ├── cnn_lstm.py         # CNN-LSTM Hybrid
+│       ├── cnn_gru.py          # CNN-GRU Hybrid
+│       ├── transformer.py      # Transformer Encoder
+│       ├── cnn_bilstm_attention.py    # CNN-BiLSTM-Attention
+│       └── cnn_bigru_attention.py     # CNN-BiGRU-Attention
 │
 ├── results/
-│   ├── figures/
-│   └── metrics/
+│   ├── scaler.joblib           # Fitted data scaler
+│   ├── transformer_best.pt     # Best model weights
+│   ├── transformer_metrics.json # Performance metrics
+│   ├── transformer_predictions.csv # Model predictions
+│   └── training_history.json   # Training curves
 │
-└── tests/
+└── notebooks/                  # Jupyter notebooks (optional)
+    ├── 01_data_exploration.ipynb
+    ├── 02_preprocessing.ipynb
+    └── 03_model_comparison.ipynb
 ```
+
+**Model Files Summary:**
+- 3 Sequential Models: LSTM, BiLSTM, GRU
+- 2 Hybrid CNN-RNN Models: CNN-LSTM, CNN-GRU  
+- 2 Attention-Enhanced Models: CNN-BiLSTM-Attention, CNN-BiGRU-Attention
+- 1 Transformer Model: Transformer Encoder
+- **Total: 8 models for comparative analysis**
 
 ---
 
@@ -270,176 +352,244 @@ pip install -r requirements.txt
 
 ## 🚀 Quick Start
 
-Once the dataset has been prepared:
+### Train a Single Model
+
+Train a specific model on NASA dataset:
 
 ```bash
-python -m src.train --config configs/nasa.yaml
+# Train LSTM
+python -m src.train --config configs/nasa.yaml --model lstm
+
+# Train BiLSTM
+python -m src.train --config configs/nasa.yaml --model bilstm
+
+# Train Transformer
+python -m src.train --config configs/nasa.yaml --model transformer
+
+# Train CNN-BiLSTM-Attention
+python -m src.train --config configs/nasa.yaml --model cnn_bilstm_attention
 ```
 
-Evaluate a trained model:
+### Evaluate Trained Models
+
+Evaluate a trained model on test data:
 
 ```bash
-python -m src.evaluate --config configs/nasa.yaml
+python -m src.evaluate --config configs/nasa.yaml --model_path results/model_best.pt
 ```
 
-A demonstration notebook will also be available in:
+### Comparative Analysis
 
-```text
-notebooks/03_soh_prediction_demo.ipynb
+Run all models for systematic comparison:
+
+```bash
+python -m src.train --config configs/nasa.yaml --compare_all
+```
+
+Generate comparison report:
+
+```bash
+python -m src.evaluate --compare_all --output results/comparison_report.json
 ```
 
 ---
 
 ## 📏 Evaluation Metrics
 
-Models are evaluated using:
+All models are evaluated using standard regression metrics:
 
-### Mean Absolute Error
+### Primary Metrics
 
-[
-MAE =
-\frac{1}{N}
-\sum_{i=1}^{N}
-|y_i-\hat{y}_i|
-]
+**Mean Absolute Error (MAE)**
+$$MAE = \frac{1}{N} \sum_{i=1}^{N} |y_i - \hat{y}_i|$$
 
-### Root Mean Squared Error
+**Root Mean Squared Error (RMSE)**
+$$RMSE = \sqrt{\frac{1}{N} \sum_{i=1}^{N} (y_i - \hat{y}_i)^2}$$
 
-[
-RMSE =
-\sqrt{
-\frac{1}{N}
-\sum_{i=1}^{N}
-(y_i-\hat{y}_i)^2
-}
-]
+**Coefficient of Determination (R²)**
+$$R^2 = 1 - \frac{\sum_i (y_i - \hat{y}_i)^2}{\sum_i (y_i - \bar{y})^2}$$
 
-### Mean Absolute Percentage Error
+### Secondary Metrics
 
-[
-MAPE =
-\frac{100}{N}
-\sum_{i=1}^{N}
-\left|
-\frac{y_i-\hat{y}_i}{y_i}
-\right|
-]
+**Mean Absolute Percentage Error (MAPE)**
+$$MAPE = \frac{100}{N} \sum_{i=1}^{N} \left| \frac{y_i - \hat{y}_i}{y_i} \right|$$
 
-### Coefficient of Determination
+**Inference Time** - Model prediction speed on test set
 
-[
-R^2 =
-1-
-\frac{
-\sum_i(y_i-\hat{y}_i)^2
-}{
-\sum_i(y_i-\bar{y})^2
-}
-]
+**Model Size** - Number of parameters and memory footprint
 
 ---
 
-## 📈 Experimental Results
+## 📈 Experimental Results & Benchmarks
 
-Verified experimental results will be reported here as the corresponding implementations and evaluation pipelines are released.
+This section will be populated with comprehensive comparative results across all models.
 
-The benchmark table will follow this structure:
+### Expected Comparison Table
 
-| Model        | Dataset | RMSE | MAE | MAPE | R² |
-| ------------ | ------- | ---: | --: | ---: | -: |
-| LSTM         | NASA    |    — |   — |    — |  — |
-| BiLSTM       | NASA    |    — |   — |    — |  — |
-| Transformer  | NASA    |    — |   — |    — |  — |
-| Hybrid Model | NASA    |    — |   — |    — |  — |
-| Hybrid Model | CALCE   |    — |   — |    — |  — |
+| Model | Dataset | RMSE | MAE | R² | Gen. (CALCE) | Inf. Time |
+|-------|---------|------|-----|-----|-------------|-----------|
+| LSTM | NASA | — | — | — | — | — |
+| BiLSTM | NASA | — | — | — | — | — |
+| GRU | NASA | — | — | — | — | — |
+| CNN-LSTM | NASA | — | — | — | — | — |
+| CNN-GRU | NASA | — | — | — | — | — |
+| CNN-BiLSTM-Attn | NASA | — | — | — | — | — |
+| CNN-BiGRU-Attn | NASA | — | — | — | — | — |
+| Transformer | NASA | — | — | — | — | — |
 
-Only results reproducible from the released experimental configuration will be reported.
+**Notes:**
+- "Gen. (CALCE)" = Cross-dataset generalization (trained on NASA, tested on CALCE)
+- "Inf. Time" = Average inference time per batch
+- Results will be added as experiments complete
 
 ---
 
-## 🔄 Cross-Battery Generalization
+## 🔄 Cross-Dataset Generalization Analysis
 
-A major objective is evaluating whether models trained on selected batteries can generalize to previously unseen cells.
+A major research goal is evaluating model robustness across different battery datasets:
 
-The repository will support experiments of the form:
+### Generalization Experiments
+
+Systematic evaluation of generalization:
 
 ```text
-Training Batteries
-        │
-        ▼
-Model Training
-        │
-        ▼
-Previously Unseen Battery
-        │
-        ▼
-SOH Prediction
-        │
-        ▼
-Generalization Evaluation
+Scenario 1: Single-Dataset Training
+├── Train on NASA → Test on NASA (in-distribution)
+├── Train on CALCE → Test on CALCE (in-distribution)
+
+Scenario 2: Cross-Dataset Transfer
+├── Train on NASA → Test on CALCE (cross-dataset)
+├── Train on CALCE → Test on NASA (cross-dataset)
+
+Scenario 3: Combined Training
+└── Train on NASA + CALCE → Test on both (domain adaptation)
 ```
 
-This setting is particularly important for practical battery-management applications.
+### Key Research Questions
+
+1. Which model architecture generalizes best across datasets?
+2. Does bidirectional modeling (BiLSTM, BiGRU) improve cross-dataset performance?
+3. Do attention mechanisms help with domain transfer?
+4. How does Transformer performance compare to hybrid CNN-RNN models?
+5. What is the trade-off between model complexity and generalization?
 
 ---
 
-## 🔍 Explainability
+## 🎯 Model Comparison Summary
 
-Future releases will include model interpretation tools such as:
-
-* feature importance,
-* attention visualization,
-* SHAP analysis,
-* degradation-regime analysis,
-* prediction-error analysis.
-
-The objective is to better understand **why** a model predicts a particular health state.
-
----
-
-## 🔁 Reproducibility
-
-Experiments will document:
-
-* random seeds,
-* dataset splits,
-* preprocessing parameters,
-* model hyperparameters,
-* training configuration,
-* software dependencies,
-* evaluation protocols.
-
-Configuration files will be stored under:
-
-```text
-configs/
-```
+| Aspect | LSTM | BiLSTM | GRU | CNN-LSTM | CNN-GRU | CNN-BiLSTM-Attn | CNN-BiGRU-Attn | Transformer |
+|--------|:----:|:------:|:---:|:--------:|:-------:|:---------------:|:--------------:|:-----------:|
+| Complexity | Low | Low | Low | Medium | Medium | High | High | High |
+| Speed | Fast | Fast | Fast | Medium | Medium | Slow | Slow | Medium |
+| Parameters | Few | Few | Few | Medium | Medium | Many | Many | Many |
+| Local Features | ✗ | ✗ | ✗ | ✓ | ✓ | ✓ | ✓ | ✗ |
+| Bidirectional | ✗ | ✓ | ✗ | ✗ | ✗ | ✓ | ✓ | ✗ |
+| Attention | ✗ | ✗ | ✗ | ✗ | ✗ | ✓ | ✓ | ✓ |
+| Self-Attention | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✓ |
 
 ---
 
-## 🗺️ Roadmap
+## 🔍 Explainability & Analysis
 
-* [ ] Dataset preparation pipeline
-* [ ] NASA preprocessing
-* [ ] CALCE preprocessing
-* [ ] LSTM baseline
-* [ ] BiLSTM baseline
-* [ ] CNN-BiLSTM implementation
-* [ ] Transformer implementation
-* [ ] Wavelet-enhanced hybrid architecture
-* [ ] Cross-battery validation
-* [ ] Benchmark experiments
-* [ ] Attention visualization
-* [ ] SHAP explainability
-* [ ] Reproducible demonstration notebook
+Future releases will include interpretation tools:
+
+* **Feature Importance** - Which input features drive predictions?
+* **Attention Visualization** - What time steps does the model focus on?
+* **Prediction Error Analysis** - When and why do models fail?
+* **Degradation Regime Analysis** - Different predictions for different battery states?
+* **SHAP Values** - Shapley-based model interpretability
+* **Saliency Maps** - Gradient-based input importance
+
+The objective is to understand **why** each model predicts specific health states and identify which architectures are best suited for different operating conditions.
 
 ---
 
-## 📚 Related Research
+## 🔁 Reproducibility & Configuration
 
-This repository is connected to my research on **AI-based lithium-ion battery health diagnosis, hybrid deep learning, wavelet-enhanced modeling, attention mechanisms, and intelligent electric-vehicle energy systems**.
+All experiments document and ensure:
 
-Associated peer-reviewed publications will be linked here with their DOI and corresponding reproducible experiments.
+* Random seeds and reproducibility
+* Dataset splits and preprocessing parameters
+* Model hyperparameters and training configuration
+* Software dependencies (see requirements.txt)
+* Evaluation protocols and metrics
+* Configuration files in `configs/`
+
+All results are generated from reproducible experimental pipelines.
+
+---
+
+## 🗺️ Development Roadmap
+
+### Phase 1: Core Implementation ✅
+- [x] LSTM implementation
+- [x] BiLSTM implementation
+- [x] GRU implementation
+- [x] CNN-LSTM implementation
+- [x] CNN-GRU implementation
+- [x] CNN-BiLSTM-Attention implementation
+- [x] CNN-BiGRU-Attention implementation
+- [x] Transformer implementation
+
+### Phase 2: Data & Training 🔄
+- [ ] NASA dataset preprocessing
+- [ ] CALCE dataset preprocessing
+- [ ] Training pipeline for all models
+- [ ] Model checkpointing and logging
+- [ ] Hyperparameter optimization
+
+### Phase 3: Evaluation & Comparison 📋
+- [ ] Single-dataset benchmarking (NASA)
+- [ ] Single-dataset benchmarking (CALCE)
+- [ ] Cross-dataset generalization tests
+- [ ] Performance comparison table
+- [ ] Inference time benchmarking
+- [ ] Model size analysis
+
+### Phase 4: Analysis & Insights 🔍
+- [ ] Attention visualization
+- [ ] Feature importance analysis
+- [ ] Prediction error analysis
+- [ ] Cross-dataset transfer insights
+- [ ] Model selection recommendations
+- [ ] Comprehensive comparison report
+
+### Phase 5: Documentation 📚
+- [ ] Dataset preparation guide
+- [ ] Model training guide
+- [ ] Evaluation guide
+- [ ] Jupyter notebooks with examples
+- [ ] Hyperparameter tuning guide
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Areas for collaboration:
+
+* **New Model Architectures** - Implement and benchmark additional hybrid models
+* **Dataset Integration** - Add support for other battery datasets
+* **Optimization** - Model acceleration and quantization techniques
+* **Analysis Tools** - Visualization and interpretability tools
+* **Documentation** - Tutorials and usage guides
+* **Bug Fixes** - Identify and fix issues
+
+Please open an issue or pull request with your contributions.
+
+---
+
+## 📚 Related Research & Publications
+
+This repository is part of comprehensive research on **AI-driven battery health diagnosis** using:
+
+* Deep Learning & Transformer architectures
+* Hybrid CNN-RNN models
+* Attention mechanisms for time-series prediction
+* Cross-dataset generalization and transfer learning
+* Intelligent Battery Management Systems
+* Energy AI and electric vehicle applications
+
+Associated peer-reviewed publications, datasets, and reproducible experiments will be linked here with their DOI.
 
 ---
 
@@ -447,26 +597,43 @@ Associated peer-reviewed publications will be linked here with their DOI and cor
 
 **Walid Mchara, PhD**
 
-AI & Data Science Researcher
+AI & Data Science Researcher | Deep Learning & Battery Intelligence Specialist
 
-Research areas:
+**Research Areas:**
+- `Deep Learning` • `Transformer Architectures` • `Battery Intelligence`
+- `Time-Series Forecasting` • `Generative AI` • `Energy Systems`
+- `Hybrid Model Design` • `Cross-Dataset Transfer Learning`
 
-`Deep Learning` • `Transformers` • `Battery Intelligence` • `Energy AI` • `Time-Series Forecasting` • `Generative AI`
-
-GitHub: [walidmchara](https://github.com/walidmchara)
-
-Research portfolio: [AI-Research-Portfolio](https://github.com/walidmchara/AI-Research-Portfolio)
+**Contact & Links:**
+- GitHub: [walidmchara](https://github.com/walidmchara)
+- Research Portfolio: [AI-Research-Portfolio](https://github.com/walidmchara/AI-Research-Portfolio)
 
 ---
 
 ## 📄 License
 
-This project is released under the **MIT License**.
+This project is released under the **MIT License** — see [LICENSE](LICENSE) file for details.
 
 ---
 
 ## ⭐ Citation
 
-If you use code or methodological components from this repository in academic research, please cite the corresponding publication associated with the implemented model.
+If you use code or methodological components from this repository in academic research, please cite the corresponding publication:
 
-Full BibTeX references will be provided alongside the released implementations.
+```bibtex
+@article{mchara2024battery,
+  title={Comparative Analysis of Hybrid Deep Learning Models for Battery State-of-Health Estimation},
+  author={Mchara, Walid},
+  journal={[Journal Name]},
+  year={2024},
+  note={https://github.com/walidmchara/Battery-Health-Deep-Learning}
+}
+```
+
+---
+
+## 🔔 Citation & Attribution
+
+This work is part of the [AI Research Portfolio](https://github.com/walidmchara/AI-Research-Portfolio) by Walid Mchara, PhD.
+
+Please cite the repository and associated publications when using this work in academic or commercial contexts.
