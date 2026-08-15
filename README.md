@@ -614,26 +614,10 @@ AI & Data Science Researcher | Deep Learning & Battery Intelligence Specialist
 
 This project is released under the **MIT License** — see [LICENSE](LICENSE) file for details.
 
----
-
-## ⭐ Citation
-
-If you use code or methodological components from this repository in academic research, please cite the corresponding publication:
-
-```bibtex
-@article{mchara2024battery,
-  title={Comparative Analysis of Hybrid Deep Learning Models for Battery State-of-Health Estimation},
-  author={Mchara, Walid},
-  journal={[Journal Name]},
-  year={2024},
-  note={https://github.com/walidmchara/Battery-Health-Deep-Learning}
-}
-```
-
----
 
 ## 🔔 Citation & Attribution
 
 This work is part of the [AI Research Portfolio](https://github.com/walidmchara/AI-Research-Portfolio) by Walid Mchara, PhD.
 
-Please cite the repository and associated publications when using this work in academic or commercial contexts.
+W. Mchara, M. A. Khalfa and L. Manai, "Improved Diagnosis of Lithium-Ion Battery Health in Electric Vehicles via a Hybrid Deep Learning Model Incorporating Wavelet Transform and Attention Mechanism," 2024 IEEE International Conference on Artificial Intelligence & Green Energy (ICAIGE), Yasmine Hammamet, Tunisia, 2024, pp. 1-6, doi: 10.1109/ICAIGE62696.2024.10776740.
+keywords: {Wavelet transforms;Lithium-ion batteries;Deep learning;Attention mechanisms;Accuracy;Predictive models;Prediction algorithms;Convolutional neural networks;Reliability;Long short term memory;Convolutional Neural Network;attention mechanism(AM);Deep Neural Network(DNN);State of Health;lithium-ion batteries},
