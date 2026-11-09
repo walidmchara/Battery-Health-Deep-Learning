@@ -187,7 +187,7 @@ This project uses **dual-dataset evaluation** to assess model generalization:
 | **Combined Training** | Improve robustness through diverse data sources |
 | **Comparative Benchmarking** | Identify which architectures generalize best |
 
-> Large raw datasets are not directly stored in this repository. Instructions for obtaining and preparing the datasets are provided in [data/README.md](data/README.md).
+> Cycle-level NASA and CALCE CSV records are available in [data/processed/](data/processed/), with source checksums in [the manifest](data/processed/manifest.json). Full-resolution MATLAB and Excel source archives are maintained separately.
 
 ---
 
@@ -1073,9 +1073,9 @@ W. Mchara, M. A. Khalfa and L. Manai, "Improved Diagnosis of Lithium-Ion Battery
 keywords: {Wavelet transforms;Lithium-ion batteries;Deep learning;Attention mechanisms;Accuracy;Predictive models;Prediction algorithms;Convolutional neural networks;Reliability;Long short term memory;Convolutional Neural Network;attention mechanism(AM);Deep Neural Network(DNN);State of Health;lithium-ion batteries},
 
 
-## Real NASA PCoE and CALCE CS2 datasets (2026-11-09 integration)
+## NASA and CALCE data provenance
 
-The original NASA ZIP and four CALCE CS2 ZIP archives have been inspected. Use the new offline converter in [`scripts/prepare_battery_data.py`](scripts/prepare_battery_data.py) and see [`docs/REAL_DATA_SETUP.md`](docs/REAL_DATA_SETUP.md) for commands, source links, quality controls, target definitions and limitations. Source archives and derived CSVs are deliberately ignored by Git. This integration validates the **data import interface**, not the published paper metrics.
+The datasets are documented in [data/README.md](data/README.md) and [docs/REAL_DATA_SETUP.md](docs/REAL_DATA_SETUP.md). Cycle-level NASA and CALCE CSV records are versioned under `data/processed/`, alongside a provenance manifest. Full-resolution source archives remain separate from the repository.
 
 
 ## Included NASA and CALCE data
