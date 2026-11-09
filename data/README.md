@@ -1,36 +1,16 @@
-# NASA battery data
+# Battery benchmark data
 
-Place the original NASA `.mat` files in `data/raw/`:
+NASA PCoE and CALCE CS2 measurements are included as cycle-level CSV tables. The source provenance and conversion metadata are maintained in [processed/manifest.json](processed/manifest.json).
 
-```text
-data/raw/
-├── B0005.mat
-├── B0006.mat
-├── B0007.mat
-└── B0018.mat
-```
+## Dataset inventory
 
-The default experiment trains on **B0005, B0006, and B0007** and evaluates on the unseen **B0018** cell.
+- **NASA:** 12 cells (B0005–B0018 benchmark plus B0029–B0032 and B0053–B0056 groups), in [processed/nasa/](processed/nasa/).
+- **CALCE:** CS2_35, CS2_36, CS2_37 and CS2_38, in [processed/calce/](processed/calce/).
 
-## Target
+## Research protocol
 
-For each cell, capacity-based State of Health is defined as:
+Battery-level separation is essential: B0005/B0006/B0007 form the standard development group and B0018 is held out for evaluation. SOH is based on a capacity ratio; same-cycle capacity and capacity-derived target columns must not enter the model's predictors.
 
-`SOH_t = Capacity_t / Capacity_initial`
+The original training pipeline `src/train.py` and `configs/nasa.yaml` was designed for NASA MATLAB inputs. The committed CSVs support cycle-level analysis, but they are not a drop-in replacement for that pipeline without adapting the data loader. The required original `.mat` traces can be extracted locally using the documented converter; see [../docs/REAL_DATA_SETUP.md](../docs/REAL_DATA_SETUP.md).
 
-`capacity_ah` is retained only for constructing/evaluating the target. It is **not** included in the predictor list, avoiding direct target leakage.
-
-## Predictors
-
-Cycle-level statistics are extracted from voltage, current, temperature, and discharge time. Windows are created independently within each cell and never cross battery boundaries.
-
-Raw NASA files are intentionally not redistributed by this repository. Users should obtain the data from the original data provider and respect its terms.
-
-
-## User-supplied NASA + CALCE source archives
-
-The NASA outer ZIP contains nested archives with the `.mat` files. CALCE CS2_35–38 contain 25/26/27/28 `.xlsx` files; the original CALCE discharge capacity column is cumulative, so it must be differenced per cycle. See [`../docs/REAL_DATA_SETUP.md`](../docs/REAL_DATA_SETUP.md). Run `python scripts/prepare_battery_data.py --help` from the project root. Never commit the original archives or processed CSVs.
-
-## Derived data now committed
-
-Real NASA and CALCE cycle-level CSVs are under [processed/](processed/) with [provenance manifest](processed/manifest.json). The training loader still expects original NASA MATLAB files unless adapted; see [docs/REAL_DATA_SETUP.md](../docs/REAL_DATA_SETUP.md).
+Sources: [NASA PCoE](https://www.nasa.gov/intelligent-systems-division/discovery-and-systems-health/pcoe/pcoe-data-set-repository/) and [CALCE/UMD](https://calce.umd.edu/data).
