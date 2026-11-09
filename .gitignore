@@ -8,3 +8,11 @@ results/*.joblib
 results/*.csv
 .ipynb_checkpoints/
 .DS_Store
+
+# NASA PCoE / CALCE originals and generated cycle-level datasets
+data/raw/
+data/processed/
+data/**/*.zip
+data/**/*.mat
+data/**/*.xlsx
+data/**/*.csv

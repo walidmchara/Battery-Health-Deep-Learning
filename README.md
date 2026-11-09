@@ -1071,3 +1071,8 @@ This work is part of the [AI Research Portfolio](https://github.com/walidmchara/
 
 W. Mchara, M. A. Khalfa and L. Manai, "Improved Diagnosis of Lithium-Ion Battery Health in Electric Vehicles via a Hybrid Deep Learning Model Incorporating Wavelet Transform and Attention Mechanism," 2024 IEEE International Conference on Artificial Intelligence & Green Energy (ICAIGE), Yasmine Hammamet, Tunisia, 2024, pp. 1-6, doi: 10.1109/ICAIGE62696.2024.10776740.
 keywords: {Wavelet transforms;Lithium-ion batteries;Deep learning;Attention mechanisms;Accuracy;Predictive models;Prediction algorithms;Convolutional neural networks;Reliability;Long short term memory;Convolutional Neural Network;attention mechanism(AM);Deep Neural Network(DNN);State of Health;lithium-ion batteries},
+
+
+## Real NASA PCoE and CALCE CS2 datasets (2026-11-09 integration)
+
+The original NASA ZIP and four CALCE CS2 ZIP archives have been inspected. Use the new offline converter in [`scripts/prepare_battery_data.py`](scripts/prepare_battery_data.py) and see [`docs/REAL_DATA_SETUP.md`](docs/REAL_DATA_SETUP.md) for commands, source links, quality controls, target definitions and limitations. Source archives and derived CSVs are deliberately ignored by Git. This integration validates the **data import interface**, not the published paper metrics.
