@@ -1076,3 +1076,8 @@ keywords: {Wavelet transforms;Lithium-ion batteries;Deep learning;Attention mech
 ## Real NASA PCoE and CALCE CS2 datasets (2026-11-09 integration)
 
 The original NASA ZIP and four CALCE CS2 ZIP archives have been inspected. Use the new offline converter in [`scripts/prepare_battery_data.py`](scripts/prepare_battery_data.py) and see [`docs/REAL_DATA_SETUP.md`](docs/REAL_DATA_SETUP.md) for commands, source links, quality controls, target definitions and limitations. Source archives and derived CSVs are deliberately ignored by Git. This integration validates the **data import interface**, not the published paper metrics.
+
+
+## Included NASA and CALCE data
+
+Cycle-level CSVs from 12 NASA batteries and 4 CALCE CS2 cells are now versioned in [data/processed/](data/processed/). [Manifest](data/processed/manifest.json) · [Setup and limitations](docs/REAL_DATA_SETUP.md). Note that the pre-existing `src/train.py` uses raw NASA MATLAB inputs and is not automatically switched to this CSV format.

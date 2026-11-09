@@ -11,8 +11,7 @@ results/*.csv
 
 # NASA PCoE / CALCE originals and generated cycle-level datasets
 data/raw/
-data/processed/
 data/**/*.zip
 data/**/*.mat
 data/**/*.xlsx
-data/**/*.csv
+# Tracked derived data/processed CSVs; original source ZIP/MAT/XLSX remain local.
