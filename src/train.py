@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+from copy import deepcopy
 import json
 import random
 from pathlib import Path
@@ -17,6 +18,7 @@ from src.dataset import SOHSequenceDataset, make_sequences
 from src.models.lstm import LSTMRegressor
 from src.models.transformer import TransformerRegressor
 from src.preprocessing import FEATURE_COLUMNS, load_batteries
+from training_recovery import EpochCheckpoint
 
 
 def set_seed(seed):
@@ -44,7 +46,7 @@ def build_model(cfg, input_size, sequence_length):
     raise ValueError("model.type must be 'lstm' or 'transformer'")
 
 
-def main(config_path):
+def main(config_path, checkpoint_dir=None, resume=False):
     with open(config_path, "r", encoding="utf-8") as handle:
         cfg = yaml.safe_load(handle)
 
@@ -100,10 +102,21 @@ def main(config_path):
     output_dir.mkdir(parents=True, exist_ok=True)
     checkpoint = output_dir / f'{cfg["model"]["type"].lower()}_best.pt'
 
-    best_val, stale = float("inf"), 0
+    recovery=EpochCheckpoint(checkpoint_dir or output_dir / "recovery", {
+        "config":cfg,"feature_columns":FEATURE_COLUMNS,
+        "data_files":[(p.as_posix(),p.stat().st_size)
+                      for p in sorted(Path(data_cfg["data_dir"]).rglob("*.csv"))],
+    })
+    stateful={"model":model,"optimizer":optimizer}
+    best_val, stale, best_state, start_epoch = float("inf"), 0, None, 0
     history = []
+    if resume:
+        prev=recovery.restore(stateful,device=device)
+        start_epoch=prev["epoch"];best_val=prev["best_val"]
+        stale=prev["stale"];best_state=prev["best_state"];history=prev["history"]
+        print(f"Resuming after epoch {start_epoch}")
 
-    for epoch in range(1, int(cfg["training"]["epochs"]) + 1):
+    for epoch in range(start_epoch + 1, int(cfg["training"]["epochs"]) + 1):
         model.train()
         train_losses = []
         for x, y in train_loader:
@@ -129,20 +142,18 @@ def main(config_path):
 
         if val_loss < best_val:
             best_val, stale = val_loss, 0
-            torch.save(
-                {
-                    "model_state": model.state_dict(),
-                    "feature_columns": FEATURE_COLUMNS,
-                    "config": cfg,
-                },
-                checkpoint,
-            )
+            best_state = deepcopy(model.state_dict())
         else:
             stale += 1
-            if stale >= int(cfg["training"]["patience"]):
-                print("Early stopping.")
-                break
+        recovery.save(epoch,stateful,{"best_val":best_val,"stale":stale,
+                                      "best_state":best_state,"history":history})
+        if stale >= int(cfg["training"]["patience"]):
+            print("Early stopping.")
+            break
 
+    if best_state is None: raise RuntimeError("No best model checkpoint")
+    torch.save({"model_state":best_state,"feature_columns":FEATURE_COLUMNS,
+                "config":cfg},checkpoint)
     joblib.dump(scaler, output_dir / "scaler.joblib")
     with open(output_dir / "training_history.json", "w", encoding="utf-8") as handle:
         json.dump(history, handle, indent=2)
@@ -153,5 +164,7 @@ def main(config_path):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--config", default="configs/nasa.yaml")
+    parser.add_argument("--checkpoint-dir",help="Persistent checkpoint folder")
+    parser.add_argument("--resume",action="store_true")
     args = parser.parse_args()
-    main(args.config)
+    main(args.config,args.checkpoint_dir,args.resume)
