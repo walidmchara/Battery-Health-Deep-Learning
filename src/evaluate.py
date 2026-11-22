@@ -15,6 +15,7 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 from src.dataset import make_sequences
 from src.train import build_model
 from src.preprocessing import FEATURE_COLUMNS, load_batteries
+from src.splits import validate_battery_splits
 
 
 def safe_mape(y_true, y_pred):
@@ -31,6 +32,10 @@ def main(config_path):
     checkpoint_path = output_dir / f"{model_type}_best.pt"
     scaler = joblib.load(output_dir / "scaler.joblib")
     checkpoint = torch.load(checkpoint_path, map_location="cpu")
+    validate_battery_splits(cfg["data"]["train_batteries"], cfg["data"]["test_batteries"])
+    validate_battery_splits(
+        checkpoint["config"]["data"]["train_batteries"], cfg["data"]["test_batteries"]
+    )
 
     test_frame = load_batteries(cfg["data"]["data_dir"], cfg["data"]["test_batteries"])
     x_test, y_test, metadata = make_sequences(

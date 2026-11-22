@@ -897,6 +897,8 @@ python -m pytest -q
 
 The tests cover data preparation and checkpoint recovery; they do not replace a completed training run or establish scientific validity for a model comparison.
 
+Training and evaluation reject overlapping configured train/test batteries. Evaluation also checks the test batteries against the training split recorded in the checkpoint, even if the configuration was edited after training. The cycle-level inputs include measurements from the target discharge cycle, so this is not a forecast made before that discharge; the split check cannot rule out indirect capacity proxies or other leakage.
+
 ## 🔁 Reproducibility & Configuration
 
 All experiments document and ensure:
