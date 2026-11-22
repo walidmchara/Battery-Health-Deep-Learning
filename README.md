@@ -887,6 +887,16 @@ model:
 
 ---
 
+## 🧪 Validation
+
+Run the unit tests from the repository root:
+
+```bash
+python -m pytest -q
+```
+
+The tests cover data preparation and checkpoint recovery; they do not replace a completed training run or establish scientific validity for a model comparison.
+
 ## 🔁 Reproducibility & Configuration
 
 All experiments document and ensure:
