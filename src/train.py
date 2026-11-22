@@ -18,6 +18,7 @@ from src.dataset import SOHSequenceDataset, make_sequences
 from src.models.lstm import LSTMRegressor
 from src.models.transformer import TransformerRegressor
 from src.preprocessing import FEATURE_COLUMNS, load_batteries
+from src.splits import validate_battery_splits
 from training_recovery import EpochCheckpoint
 
 
@@ -52,6 +53,7 @@ def main(config_path, checkpoint_dir=None, resume=False):
 
     set_seed(cfg["seed"])
     data_cfg = cfg["data"]
+    validate_battery_splits(data_cfg["train_batteries"], data_cfg["test_batteries"])
     sequence_length = int(data_cfg["sequence_length"])
     frame = load_batteries(data_cfg["data_dir"], data_cfg["train_batteries"])
 
